@@ -76,4 +76,8 @@ public class Body {
         yyPos = yyPos + yyVel * dt;
     }
 
+    public void draw() {
+        String imgFileName = "images/" + this.imgFileName;
+        StdDraw.picture(xxPos, yyPos, imgFileName);
+    }
 }
