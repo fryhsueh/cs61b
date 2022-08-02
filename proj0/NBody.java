@@ -49,8 +49,39 @@ public class NBody {
             String filename = args[2];
             double radius = readRadius(filename);
             Body[] bodies = readBodies(filename);
-            drawBackGround(radius);
-            drawBodies(bodies);
+
+            // better draw performence
+            StdDraw.enableDoubleBuffering();
+
+            int size = bodies.length;
+
+            double[] xForces = new double[size];
+            double[] yForces = new double[size];
+
+            double time = 0;
+
+
+            // draw loop
+            while (time < T) {
+                //calculate the nex x and y forces for each Body
+                for (int i = 0; i < size; i++) {
+                    xForces[i] = bodies[i].calcNetForceExertedByX(bodies);
+                    yForces[i] = bodies[i].calcNetForceExertedByY(bodies);
+                }
+
+                //update each Body's position, velocity, and acceleration
+                for (int i = 0; i < size; i++) {
+                    bodies[i].update(dt, xForces[i], yForces[i]);
+                }
+
+                StdDraw.clear();
+                drawBackGround(radius);
+                drawBodies(bodies);
+
+                StdDraw.show();
+                StdDraw.pause(10);
+                time += dt;
+            }
         }
        
     }
