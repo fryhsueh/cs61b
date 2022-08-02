@@ -5,7 +5,7 @@ public class NBody {
     /**get radius from given file, which is the second double */
     public static double readRadius(String filename) {
         In in = new In(filename);
-        int num = in.readInt();
+        //int num = in.readInt();
         double radius = in.readDouble();
         return radius;
     }
@@ -29,13 +29,22 @@ public class NBody {
 
         return bodies;
     }
+
+    public static void drawBackGround() {
+
+        StdDraw.picture(0.5, 0.5, "images/starfield.jpg");
+    }
     
     public static void main(String[] args) {
-        double T = Double.parseDouble(args[0]);
-        double dt = Double.parseDouble(args[1]);
-        String filename = args[2];
-        double radius = readRadius(filename);
-        Body[] bodies = readBodies(filename);
+
+        if (args.length > 0) {
+            double T = Double.parseDouble(args[0]);
+            double dt = Double.parseDouble(args[1]);
+            String filename = args[2];
+            double radius = readRadius(filename);
+            Body[] bodies = readBodies(filename);
+        }
+        drawBackGround();
 
     }
 }
